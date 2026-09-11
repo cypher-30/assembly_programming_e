@@ -1,0 +1,17 @@
+Run Log - 02_data_movement/64
+Date: 2026-09-11
+
+Assembled with: nasm -f elf64 <file>.asm -o <file>.o
+Linked with: ld <file>.o -o <file>
+
+Program                       | Time Run | Exit Code
+------------------------------|----------|----------
+01_immediate                  | 08:15:00 | 0
+02_register                   | 08:22:30 | 30
+03_direct_memory              | 09:05:10 | 30
+04_register_indirect          | 10:41:45 | 50
+05_base_displacement          | 13:12:05 | 20
+06_indexed_scaled             | 15:30:20 | 30
+07_base_index_displacement    | 18:47:55 | 40
+
+All programs assembled, linked, and executed successfully.
