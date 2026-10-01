@@ -1,4 +1,10 @@
 ; nasm -f elf32 01_immediate.asm && ld -m elf_i386 01_immediate.o && ./a.out
+; nasm -f elf32 01_immediate.asm
+; ld -m elf_i386 01_immediate.o
+; gdb --silent a.out
+
+
+
 
 section .text
 global _start

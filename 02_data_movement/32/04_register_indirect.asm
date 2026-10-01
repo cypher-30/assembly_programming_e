@@ -7,7 +7,7 @@ global _start
 
 _start:
 
-    mov ebx, num
+    mov ebx, num    
     mov eax, [ebx]
 
     mov ecx, eax

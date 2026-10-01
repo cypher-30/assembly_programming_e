@@ -35,4 +35,5 @@ _start:
 
     mov eax, 1        ; syscall number (sys_exit)
     xor ebx, ebx      ; status 0
+    ; mov ebx, 0
     int 0x80
