@@ -1,2 +1,10 @@
 *.out
 *.o
+# Compiled executables (no extension)
+/02_data_movement/64/01_immediate
+/02_data_movement/64/02_register
+/02_data_movement/64/03_direct_memory
+/02_data_movement/64/04_register_indirect
+/02_data_movement/64/05_base_displacement
+/02_data_movement/64/06_indexed_scaled
+/02_data_movement/64/07_base_index_displacement
