@@ -1,0 +1,46 @@
+Run Log - 06_loop
+Date: 2026-10-15
+
+Assembled with: nasm -f elf64 -g <file>.asm -o <file>.o
+Linked with: ld <file>.o -o <file>
+
+Program                       | Time Run | Exit Code | Notes
+------------------------------|----------|-----------|------------------------------------------
+01_loop_instruction           | 13:17:00 | 124       | INFINITE LOOP - see note below
+02_dec_jnz                    | 13:22:40 | 0         | prints "Hello, Assembly!" x5
+04_while_loop                 | 13:29:15 | 0         | prints 1 2 3 4 5
+07_sum_loop                   | 13:33:50 | 0         | prints "Sum = 15"
+08_infinite_loop              | 13:38:05 | 124       | infinite by design - see note below
+09_loop_syscall                | 13:42:30 | 0         | prints "Hello, Assembly!" x5
+
+All programs assembled and linked successfully. Programs marked exit code 124
+were stopped with `timeout 2 ./<file>` since they do not terminate on their own;
+every other program ran to completion under that same timeout with room to spare.
+
+Notes
+-----
+
+01_loop_instruction.asm did NOT behave as the comment "Repeat 5 times" says - it
+loops forever. Cause: the `syscall` instruction itself overwrites RCX (it stores
+the return address there as part of how SYSCALL/SYSRET works), so by the time
+`loop repeat` runs, RCX has been clobbered and is never the decrementing counter
+set up at the top. `loop` keeps re-entering because RCX never reaches 0 the way
+the program intends. Confirmed with `timeout 2 ./01_loop_instruction | wc -l` =
+1,724,638 lines printed in 2 seconds.
+
+09_loop_syscall.asm is the fixed version of the same pattern: it `push`es RCX
+before the syscall and `pop`s it back right after, which is exactly what protects
+it from the bug above. Comparing the two side by side makes the fix obvious once
+you know what to look for.
+
+08_infinite_loop.asm has no `_start` label at all (just a bare `repeat:` that
+falls through from the top of the file). Linking it prints:
+    ld: warning: cannot find entry symbol _start; defaulting to 0000000000401000
+...but it links anyway and runs fine from that default entry point - it just
+never exits, by design (`jmp repeat` with no counter or condition).
+
+07_sum_loop.asm declares `result resb 1` (one byte) in .bss but writes both
+`[result]` and `[result + 1]` - a one-byte overrun past the reserved space. In
+practice this landed in section padding both times I ran it and still printed
+the correct "Sum = 15", but it is relying on that padding being there rather
+than on correctly-sized storage.
