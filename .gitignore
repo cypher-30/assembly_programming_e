@@ -8,3 +8,14 @@
 /02_data_movement/64/05_base_displacement
 /02_data_movement/64/06_indexed_scaled
 /02_data_movement/64/07_base_index_displacement
+/04_logic_and_conditions/and
+/04_logic_and_conditions/not
+/04_logic_and_conditions/or
+/04_logic_and_conditions/test
+/04_logic_and_conditions/xor
+/06_loop/01_loop_instruction
+/06_loop/02_dec_jnz
+/06_loop/04_while_loop
+/06_loop/07_sum_loop
+/06_loop/08_infinite_loop
+/06_loop/09_loop_syscall
