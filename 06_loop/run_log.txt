@@ -44,3 +44,15 @@ never exits, by design (`jmp repeat` with no counter or condition).
 practice this landed in section padding both times I ran it and still printed
 the correct "Sum = 15", but it is relying on that padding being there rather
 than on correctly-sized storage.
+
+
+Addendum - 2026-11-02 (programs merged from upstream)
+-----------------------------------------------------
+Assembled with: nasm -f elf64 -g <file>.asm -o <file>.o ; ld <file>.o -o <file>
+Each run under `timeout 5`.
+
+Program          | Exit Code | Notes
+-----------------|-----------|------------------------------------------
+03_cmp_jl        | 0         | prints "Number: 1" .. "Number: 5"
+05_do_while      | 0         | prints 1 2 3 4 5
+06_push_pop      | 0         | prints "**" x3

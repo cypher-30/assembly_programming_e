@@ -19,3 +19,9 @@
 /06_loop/07_sum_loop
 /06_loop/08_infinite_loop
 /06_loop/09_loop_syscall
+
+# 07_stack / 08_macros executables
+/07_stack/0[1-6]
+/08_macros/*
+!/08_macros/*.asm
+!/08_macros/run_log.txt

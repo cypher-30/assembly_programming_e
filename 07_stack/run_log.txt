@@ -1,0 +1,22 @@
+Run Log - 07_stack
+Date: 2026-11-02
+
+Assembled with: nasm -f elf64 -g <file>.asm -o <file>.o ; ld <file>.o -o <file>
+(04.asm is 32-bit: nasm -f elf32 ; ld -m elf_i386. Built as elf64 it segfaults.)
+Each run under `timeout 5`.
+
+Program | Exit Code | Notes
+--------|-----------|------------------------------------------
+01      | 0         | push/pop demo, no output  [built 2026-10-29 09:09]
+02      | 0         | no output  [built 2026-10-29 09:09]
+03      | 0         | no output  [built 2026-10-29 09:09]
+04      | 0         | 32-bit stack frame (ebp/esp); no output  [built 2026-10-29 10:47]
+05      | 0         | no output  [built 2026-10-29 10:57]
+06      | 0         | no output  [built 2026-10-29 11:04]
+
+These programs print nothing; only assembly, linking and a clean exit were
+checked. Register/stack values were not inspected in a debugger.
+
+Note: build times (2026-10-29) are the executable timestamps from `ls -l` on the
+author's machine. Outputs and exit codes were
+observed in a re-run on 2026-11-02.
