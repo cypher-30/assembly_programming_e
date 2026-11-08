@@ -1,0 +1,18 @@
+Run Log - 11_input
+Date: 2026-11-09
+
+Assembled with: nasm -f elf64 <file>.asm -o <file>.o
+Linked with: ld <file>.o -o <file>
+
+Program                       | Exit Code | Notes
+------------------------------|-----------|------------------------------------------
+01_character_64               | 0         | input "x" -> "You entered: x"
+02_line_of_text_64            | 0         | input "hello world" -> echoed back
+06_command_line_arguments_64  | 0         | no arg -> "No extra argument supplied."; arg "hello" -> "First argument: hello"
+07_read_file_64               | 0         | missing input.txt -> error message; with input.txt -> prints contents
+
+Notes
+- Command-line args come from the stack at entry: [rsp]=argc, [rsp+8]=argv[0], [rsp+16]=argv[1].
+- 07 uses openat (257) with AT_FDCWD, checks for a negative RAX (js) as the error path,
+  and keeps fd / byte count in R12 / R13 across syscalls.
+- 01 prints no trailing newline after the character (as written).

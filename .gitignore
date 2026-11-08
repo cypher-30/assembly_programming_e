@@ -25,3 +25,11 @@
 /08_macros/*
 !/08_macros/*.asm
 !/08_macros/run_log.txt
+
+# 09_files / 11_input executables and generated files
+/09_files/0[1-5]
+/09_files/*.txt
+!/09_files/run_log.txt
+/11_input/*_64
+!/11_input/*.asm
+/11_input/input.txt
