@@ -1,0 +1,20 @@
+Run Log - 09_files
+Date: 2026-11-09
+
+64-bit: nasm -f elf64 <file>.asm -o <file>.o && ld <file>.o -o <file>
+32-bit: nasm -f elf32 <file>.asm -o <file>.o && ld -m elf_i386 <file>.o -o <file>
+
+Program | Arch   | Exit Code | Notes
+--------|--------|-----------|---------------------------------------------------
+01      | 64-bit | 0         | prompt, sys_read name, echo "Hello, <name>"
+02      | 32-bit | 0         | same as 01 using int 0x80
+03      | 64-bit | 0         | creates test.txt, writes line, reads it back
+04      | 32-bit | 0         | same as 03 for test32.txt
+05      | 64-bit | 0         | appends to log.txt, then prints contents; 2nd run showed 2 entries
+
+Notes
+- sys_read returns bytes read in RAX; saved to R12 so the next syscall
+  (which clobbers RAX) can reuse it as the length for the echo write.
+- Each file is opened, written/read, closed; fd returned in RAX is kept in a
+  callee-safe register between syscalls.
+- Run in a scratch directory so test.txt / test32.txt / log.txt are not committed.
